@@ -17,10 +17,8 @@ public class ProdutoRepositorio {
     public void limparTabela() {
         try (Statement stmt = connection.createStatement()) {
 
-            // Apaga todos os registros da tabela
             stmt.executeUpdate("DELETE FROM produtos");
 
-            // Reseta o autoincremento
             stmt.executeUpdate("DELETE FROM sqlite_sequence WHERE name='produtos'");
 
             System.out.println("Tabela de produtos limpa e ID resetado.");
