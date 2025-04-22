@@ -32,53 +32,53 @@ public class Main {
             int opcao;
 
             do {
-                System.out.println("\n===== MENU =====");
-                System.out.println("1. Cadastrar Usuário");
-                System.out.println("2. Cadastrar Produto");
-                System.out.println("3. Listar Usuários");
-                System.out.println("4. Listar Produtos");
-                System.out.println("5. Registrar Venda");
-                System.out.println("6. Limpar Tabelas");
-                System.out.println("7. Sair");
-                System.out.print("Escolha uma opção: ");
+                System.out.println("\n|>| MENU |<|");
+                System.out.println("TECLE 1 para Cadastrar Usuário");
+                System.out.println("TECLE 2 para Cadastrar Produto");
+                System.out.println("TECLE 3 para Listar Usuários");
+                System.out.println("TECLE 4 para Listar Produtos");
+                System.out.println("TECLE 5 para Registrar Venda");
+                System.out.println("TECLE 6 para Limpar Tabelas");
+                System.out.println("TECLE 7 para Sair");
+                System.out.print("Digite a opção: ");
                 opcao = Integer.parseInt(scanner.nextLine());
 
                 switch (opcao) {
                     case 1 -> {
-                        System.out.print("Nome: ");
+                        System.out.print("Insira o nome para o usuário: ");
                         String nome = scanner.nextLine();
-                        System.out.print("Email: ");
+                        System.out.print("Insira o Email: ");
                         String email = scanner.nextLine();
                         usuarioRepo.cadastrar(new Usuario(nome, email));
-                        System.out.println("Usuário cadastrado com sucesso!");
+                        System.out.println("Usuário cadastrado.");
                     }
                     case 2 -> {
-                        System.out.print("Nome do Produto: ");
+                        System.out.print("Insira o nome do Produto: ");
                         String nome = scanner.nextLine();
-                        System.out.print("Preço: ");
+                        System.out.print("Qual será o preço do produto: ");
                         double preco = Double.parseDouble(scanner.nextLine());
                         produtoRepo.cadastrar(new Produto(nome, preco));
-                        System.out.println("Produto cadastrado com sucesso!");
+                        System.out.println("Produto cadastrado.");
                     }
                     case 3 -> {
-                        System.out.println("=== Usuários Cadastrados ===");
+                        System.out.println("|>| Usuários Cadastrados |<|");
                         usuarioRepo.listarTodos().forEach(u ->
                                 System.out.println("- " + u.getNome() + " (" + u.getEmail() + ")"));
                     }
                     case 4 -> {
-                        System.out.println("=== Produtos Cadastrados ===");
+                        System.out.println("|>| Produtos Cadastrados |<|");
                         produtoRepo.listarTodos().forEach(p ->
                                 System.out.println("- [" + p.getId() + "] " + p.getNome() + " - R$" + p.getPreco()));
                     }
                     case 5 -> registrarVenda(scanner, usuarioRepo, produtoRepo, vendaRepo);
                     case 6 -> {
-                        System.out.println("Tem certeza que deseja limpar todas as tabelas? (S/N)");
+                        System.out.println("Tem certeza que deseja limpar todas as tabelas? (DIGITE S OU N)");
                         String confirmacao = scanner.nextLine().toUpperCase();
                         if (confirmacao.equals("S")) {
                             try {
                                 usuarioRepo.limparTabela();
                                 produtoRepo.limparTabela();
-                                System.out.println("Tabelas limpas com sucesso!");
+                                System.out.println("Tabelas resetadas.");
                             } catch (SQLException e) {
                                 System.out.println("Erro ao limpar as tabelas: " + e.getMessage());
                             }
@@ -88,7 +88,7 @@ public class Main {
                     }
                     case 7 -> {
                         System.out.println("Saindo do sistema...");
-                        return;  // Encerra o programa
+                        return;  // encerra o programa
                     }
                     default -> System.out.println("Opção inválida. Tente novamente.");
                 }
@@ -106,7 +106,7 @@ public class Main {
         Optional<Usuario> usuarioOpt = usuarioRepo.buscarPorEmail(email);
 
         if (usuarioOpt.isEmpty()) {
-            System.out.println("Usuário não encontrado.");
+            System.out.println("Usuário não foi encontrado.");
             return;
         }
 
@@ -133,7 +133,7 @@ public class Main {
             return;
         }
 
-        System.out.println("Produtos encontrados:");
+        System.out.println("|>| Produtos encontrados:");
         double total = 0;
         for (Produto p : produtosSelecionados) {
             System.out.println("- " + p.getNome() + " (R$ " + p.getPreco() + ")");
@@ -141,9 +141,9 @@ public class Main {
         }
 
         System.out.println("\nEscolha a forma de pagamento:");
-        System.out.println("1 - Cartão de Crédito");
-        System.out.println("2 - Boleto");
-        System.out.println("3 - PIX");
+        System.out.println("TECLE 1 - Cartão de Crédito");
+        System.out.println("TECLE 2 - Boleto");
+        System.out.println("TECLE 3 - PIX");
         System.out.print("Opção: ");
         int opcaoPagamento = Integer.parseInt(scanner.nextLine());
 
