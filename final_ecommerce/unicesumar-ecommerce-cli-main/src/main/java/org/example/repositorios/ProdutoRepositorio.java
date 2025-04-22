@@ -13,7 +13,7 @@ public class ProdutoRepositorio {
     public ProdutoRepositorio(Connection connection) {
         this.connection = connection;
     }
-
+// FUNÇÃO PARA LIMPAR AS TABELAS
     public void limparTabela() {
         try (Statement stmt = connection.createStatement()) {
 
@@ -27,6 +27,7 @@ public class ProdutoRepositorio {
         }
     }
 
+// FUNÇÃO PARA CRIAR A TABELA DO ZERO
     public void criarTabela() throws SQLException {
         String sql = """
             CREATE TABLE IF NOT EXISTS produtos (
@@ -40,6 +41,7 @@ public class ProdutoRepositorio {
         }
     }
 
+// FUNÇÃO QUE CADASTRA O NOVO USUÁRIO, ATRIBUINDO OS DEVIDOS VALORES
     public void cadastrar(Produto produto) {
         String sql = "INSERT INTO produtos (nome, preco) VALUES (?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -51,6 +53,7 @@ public class ProdutoRepositorio {
         }
     }
 
+// FUNÇÃO PARA MOSTRAR TODOS OS PRODUTOS DA TABELA
     public List<Produto> listarTodos() {
         List<Produto> produtos = new ArrayList<>();
         String sql = "SELECT * FROM produtos";
@@ -71,6 +74,7 @@ public class ProdutoRepositorio {
         return produtos;
     }
 
+// FUNÇÃO QUE BUSCAR POR ID
     public Optional<Produto> buscarPorId(int id) {
         String sql = "SELECT * FROM produtos WHERE id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
